@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>BFME: REFORGED</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <script>
+    (() => {
+      if (
+        typeof process !== 'object' ||
+        (typeof process === 'object' && !process.env.START_HOT)
+      ) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './dist/style.css';
+        // HACK: Writing the script path should be done with webpack
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="title-bar">
+
+    <div id="left-side">
+      <img id="app-icon" src="./assets/icon.ico" />
+
+      <div id="title">BMFE: REFORGED</div>
+    </div>
+
+    <div id="title-bar-btns">
+
+      <button id="min-btn" class="title-bar-btn">-</button>
+
+      <button id="max-btn" class="title-bar-btn">+</button>
+
+      <button id="close-btn" class="title-bar-btn">x</button>
+
+    </div>
+  </div>
+  <div id="root"></div>
+  <script>
+    if (typeof process === 'object') {
+      const scripts = [];
+
+      if (process.env.NODE_ENV === 'development') {
+        // Dynamically insert the DLL script in development env in the
+        // renderer process
+        scripts.push('../dll/renderer.dev.dll.js');
+      }
+      if (process.env.START_HOT) {
+        // Dynamically insert the bundled app script in the renderer process
+        const port = process.env.PORT || 1212;
+        scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
+      } else {
+        scripts.push('./dist/renderer.prod.js');
+      }
+
+      if (scripts.length) {
+        document.write(
+          scripts
+            .map(script => `<script defer src="${script}"><\/script>`)
+            .join('')
+        );
+      }
+    }
+
+    (function () {
+
+      const { BrowserWindow } = require('electron').remote
+
+      function init() {
+        document.getElementById("min-btn").addEventListener("click", function (e) {
+          var window = BrowserWindow.getFocusedWindow();
+          window.minimize();
+        });
+
+        document.getElementById("max-btn").addEventListener("click", function (e) {
+          var window = BrowserWindow.getFocusedWindow();
+          window.maximize();
+        });
+
+        document.getElementById("close-btn").addEventListener("click", function (e) {
+          console.log('exit btn pressed')
+          var window = BrowserWindow.getFocusedWindow();
+          window.close();
+        });
+      };
+
+      document.onreadystatechange = function () {
+        if (document.readyState == "complete") {
+          init();
+        }
+      };
+
+    })();
+  </script>
+</body>
+
+</html>

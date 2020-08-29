@@ -1,0 +1,56 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~antd/dist/antd.css';
+
+body {
+  background-color: #2B2B2B;
+  color: white;
+  font-family: "Cormorant Infant", Sans-serif;
+  overflow-y: hidden;
+  cursor: url('./assets/cursor.png'), auto;
+}
+
+#title-bar {
+
+  -webkit-app-region: drag;
+
+  height: 30px;
+
+  background-color: #040404;
+
+  padding: 0 8px;
+
+  margin: 0px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+ }
+
+ #left-side {
+   display: flex;
+ }
+
+ #app-icon {
+   height: 25px;
+   width: 25px;
+ }
+
+
+ #title-bar-btns {
+
+  -webkit-app-region: no-drag;
+  font-size: 1rem;
+ }
+
+
+ .title-bar-btn {
+  background: none !important;
+  border: none !important;
+  color: grey !important;
+
+ }
