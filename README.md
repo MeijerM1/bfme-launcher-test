@@ -1,3 +1,10 @@
+
+<h1>BFME: Reforged launcher test</h1>
+
+<p>Test to try the electron-react-boilerplate. See below</p>
+
+<hr />
+
 <img src="internals/img/erb-banner.png" width="100%" />
 
 <br>
